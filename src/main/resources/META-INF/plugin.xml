@@ -1,18 +1,47 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.github.integerlimit.groovyscriptplugin</id>
+    <id>com.intlimit.grsplugin</id>
     <name>GroovyScriptPlugin</name>
-    <vendor>integerlimit</vendor>
+    <vendor>Nomi-CEu</vendor>
 
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.lang</depends>
+    <depends>com.redhat.devtools.lsp4ij</depends>
+    <depends>org.intellij.groovy</depends>
 
-    <resource-bundle>messages.MyBundle</resource-bundle>
-
-    <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.integerlimit.groovyscriptplugin.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
+    <extensions defaultExtensionNs="com.redhat.devtools.lsp4ij">
+        <server id="groovyscript"
+                name="GroovyScript LSP Support"
+                factoryClass="com.intlimit.grsplugin.GrSLanguageServerFactory">
+            <description><![CDATA[
+        GroovyScript LSP Support for Jetbrains IDEs
+        ]]>
+            </description>
+        </server>
+        <languageMapping language="Groovy"
+                         serverId="groovyscript" />
+        <fileTypeMapping fileType="Groovy"
+                         serverId="groovyscript" />
     </extensions>
 
-    <applicationListeners>
-        <listener class="com.github.integerlimit.groovyscriptplugin.listeners.MyApplicationActivationListener" topic="com.intellij.openapi.application.ApplicationActivationListener"/>
-    </applicationListeners>
+    <extensions defaultExtensionNs="com.intellij">
+        <projectConfigurable
+                parentId="language"
+                instance="com.intlimit.grsplugin.settings.GrSSettingsConfigurable"
+                id="com.intlimit.grsplugin.settings.GrSSettingsConfigurable"
+                displayName="GroovyScript"
+        />
+
+        <lang.foldingBuilder language="Groovy"
+                             implementationClass="com.redhat.devtools.lsp4ij.features.foldingRange.LSPFoldingRangeBuilder"
+                             order="first"/>
+
+        <codeInsight.parameterInfo
+                language="Groovy"
+                implementationClass="com.redhat.devtools.lsp4ij.features.signatureHelp.LSPParameterInfoHandler"/>
+
+        <lang.psiStructureViewFactory
+                language="Groovy"
+                implementationClass="com.redhat.devtools.lsp4ij.features.documentSymbol.LSPDocumentSymbolStructureViewFactory"/>
+    </extensions>
 </idea-plugin>
