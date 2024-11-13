@@ -1,18 +1,22 @@
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin>
-    <id>com.github.integerlimit.groovyscriptplugin</id>
-    <name>GroovyScriptPlugin</name>
-    <vendor>integerlimit</vendor>
+    <id>com.intlimit.grsplugin</id>
+    <name>GroovyScript</name>
+    <vendor>Nomi-CEu</vendor>
 
     <depends>com.intellij.modules.platform</depends>
-
-    <resource-bundle>messages.MyBundle</resource-bundle>
+    <depends>com.intellij.modules.ultimate</depends>
+    <depends>org.intellij.groovy</depends>
 
     <extensions defaultExtensionNs="com.intellij">
-        <toolWindow factoryClass="com.github.integerlimit.groovyscriptplugin.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
+        <platform.lsp.serverSupportProvider
+            implementation="com.intlimit.grsplugin.GrSServerSupportProvider"
+        />
+        <projectConfigurable
+                parentId="language"
+                instance="com.intlimit.grsplugin.GrSSettingsConfigurable"
+                id="com.intlimit.grsplugin.GrSSettingsConfigurable"
+                displayName="GroovyScript"
+        />
     </extensions>
-
-    <applicationListeners>
-        <listener class="com.github.integerlimit.groovyscriptplugin.listeners.MyApplicationActivationListener" topic="com.intellij.openapi.application.ApplicationActivationListener"/>
-    </applicationListeners>
 </idea-plugin>
