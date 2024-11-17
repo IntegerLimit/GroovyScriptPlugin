@@ -1,0 +1,42 @@
+<!-- Preprocessors -->
+<templateSet group="GroovyScript Preprocessors">
+  <template name="NO_RUN" value="// NO_RUN" toReformat="false" toShortenFQNames="false"
+            key="live.template.NO.RUN.description" resource-bundle="messages.LiveTemplates">
+    <context>
+      <option name="GROOVY_STATEMENT" value="true" />
+    </context>
+  </template>
+  <template name="DEBUG_ONLY" value="// DEBUG_ONLY" toReformat="false" toShortenFQNames="false"
+            key="live.template.DEBUG.ONLY.description" resource-bundle="messages.LiveTemplates">
+    <context>
+      <option name="GROOVY_STATEMENT" value="true" />
+    </context>
+  </template>
+  <template name="NO_RELOAD" value="// NO_RELOAD" toReformat="false" toShortenFQNames="false"
+            key="live.template.NO.RELOAD.description" resource-bundle="messages.LiveTemplates">
+    <context>
+      <option name="GROOVY_STATEMENT" value="true" />
+    </context>
+  </template>
+  <template name="MODS_LOADED" value="// MODS_LOADED: $MODID$$END$" toReformat="false" toShortenFQNames="false"
+            key="live.template.MODS.LOADED.description" resource-bundle="messages.LiveTemplates">
+    <variable name="MODID" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="GROOVY_STATEMENT" value="true" />
+    </context>
+  </template>
+  <template name="SIDE" value="// SIDE: $SIDE$$END$" toReformat="false" toShortenFQNames="false"
+            key="live.template.SIDE.description" resource-bundle="messages.LiveTemplates">
+    <variable name="SIDE" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="GROOVY_STATEMENT" value="true" />
+    </context>
+  </template>
+  <template name="PACKMODE" value="// PACKMODE: $MODE$$END$" toReformat="false" toShortenFQNames="false"
+            key="live.template.PACKMODE.description" resource-bundle="messages.LiveTemplates">
+    <variable name="MODE" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="GROOVY_STATEMENT" value="true" />
+    </context>
+  </template>
+</templateSet>
