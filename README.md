@@ -59,7 +59,9 @@ Plugin based on the [IntelliJ Platform Plugin Template][template].
 ### Other
 - [ ] Allow localization
 - [ ] Fix completion removing quotes before
+- [ ] Fix completion not working with object mappers on normal input
 - [ ] Add shortcut snippets (crafting shapeless, etc.)
 - [ ] Fix bad error highlighting
-- [ ] Fix completion not working with object mappers on normal input
+- [ ] Inspections (e.g. favoring `item('rl', meta)` over `item('rl:meta')` or formatting from `item` to `metaitem`)
+  - Add to GrS's LSP?
 - [ ] Look at sources, check for groovyblacklist annotation
