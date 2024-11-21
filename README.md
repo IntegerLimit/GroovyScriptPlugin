@@ -49,3 +49,17 @@ Plugin based on the [IntelliJ Platform Plugin Template][template].
 
 [template]: https://github.com/JetBrains/intellij-platform-plugin-template
 [docs:plugin-description]: https://plugins.jetbrains.com/docs/intellij/plugin-user-experience.html#plugin-description-and-presentation
+
+## Roadmap
+### Textures
+- [x] Texture display
+- [ ] Texture tooltips
+- [ ] Implement texture support for `metaitem` (in GregTech's repo)
+
+### Other
+- [ ] Allow localization
+- [ ] Fix completion removing quotes before
+- [ ] Add shortcut snippets (crafting shapeless, etc.)
+- [ ] Fix bad error highlighting
+- [ ] Fix completion not working with object mappers on normal input
+- [ ] Look at sources, check for groovyblacklist annotation
