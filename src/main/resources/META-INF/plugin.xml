@@ -47,5 +47,9 @@
         <defaultLiveTemplates file="/liveTemplates/Preprocessors.xml" />
         <defaultLiveTemplates file="/liveTemplates/ObjectMappersVanilla.xml" />
         <defaultLiveTemplates file="/liveTemplates/ObjectMappersGregTech.xml" />
+
+        <codeInsight.inlayProvider
+                language="Groovy"
+                implementationClass="com.intlimit.grsplugin.features.TextureHintsProvider" />
     </extensions>
 </idea-plugin>
