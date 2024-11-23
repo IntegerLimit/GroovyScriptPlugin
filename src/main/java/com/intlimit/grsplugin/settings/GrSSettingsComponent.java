@@ -17,8 +17,6 @@ public class GrSSettingsComponent {
     private final JBCheckBox enable = new JBCheckBox(
             "Enable on Groovy files for this project?");
     private final JBTextField port = new JBTextField();
-    private final JBCheckBox textureDisplay = new JBCheckBox(
-            "Display textures beside object handlers (like item())");
 
     private static final String MESSAGE = "The port number must be between 0 and 65535";
 
@@ -26,7 +24,6 @@ public class GrSSettingsComponent {
         panel = FormBuilder.createFormBuilder()
                 .addComponent(enable)
                 .addLabeledComponent(new JBLabel("LSP port:"), port, 1, false)
-                .addComponent(textureDisplay, 1)
                 .addComponentFillVertically(new JPanel(), 0)
                 .getPanel();
 
@@ -70,14 +67,6 @@ public class GrSSettingsComponent {
         port.setText(Integer.toString(newPort));
     }
 
-    public boolean shouldDisplayTexture() {
-        return textureDisplay.isSelected();
-    }
-
-    public void setDisplayTexture(boolean newStatus) {
-        textureDisplay.setSelected(newStatus);
-    }
-
     public void setEnable(boolean enable) {
         this.enable.setSelected(enable);
     }
@@ -87,7 +76,7 @@ public class GrSSettingsComponent {
     }
 
     public boolean isModified(GrSSettings.State state) {
-        return getPort() != state.port || shouldDisplayTexture() != state.showTextures || enabled() != state.enable;
+        return getPort() != state.port || enabled() != state.enable;
     }
 
 }

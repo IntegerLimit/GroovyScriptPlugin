@@ -44,7 +44,6 @@ public class GrSSettingsConfigurable implements Configurable {
         var state = Objects.requireNonNull(GrSSettings.getInstance(project).getState());
         state.enable = component.enabled();
         state.port = component.getPort();
-        state.showTextures = component.shouldDisplayTexture();
 
         // Restart GrS LSP Client
         if (state.enable) {
@@ -60,7 +59,6 @@ public class GrSSettingsConfigurable implements Configurable {
         var state = Objects.requireNonNull(GrSSettings.getInstance(project).getState());
         component.setEnable(state.enable);
         component.setPort(state.port);
-        component.setDisplayTexture(state.showTextures);
     }
 
     @Override
