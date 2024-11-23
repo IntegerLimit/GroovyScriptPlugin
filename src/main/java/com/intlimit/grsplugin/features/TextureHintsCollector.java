@@ -81,8 +81,9 @@ public class TextureHintsCollector extends FactoryInlayHintsCollector {
 
             for (var res : result) {
                 var offset = LSPIJUtils.toOffset(res.getRange().getStart(), doc);
+                var presentation = new TextureElementPresentation(editor, res.getTextureUri(), res.getTooltips());
                 inlayHintsSink.addInlineElement(offset, false,
-                        new TextureElementPresentation(res.getTextureUri()),
+                        presentation,
                         false);
             }
         } catch (ProcessCanceledException | CancellationException ignore) {

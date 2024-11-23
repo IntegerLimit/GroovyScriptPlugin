@@ -53,7 +53,7 @@ Plugin based on the [IntelliJ Platform Plugin Template][template].
 ## Roadmap
 ### Textures
 - [x] Texture display
-- [ ] Texture tooltips
+- [x] Texture tooltips
 - [ ] Implement texture support for `metaitem` (in GregTech's repo)
 
 ### Other
