@@ -1,27 +1,21 @@
-# GroovyScriptPlugin
+# GroovyScript
 
 ![Build](https://github.com/IntegerLimit/GroovyScriptPlugin/workflows/Build/badge.svg)
 [![Version](https://img.shields.io/jetbrains/plugin/v/MARKETPLACE_ID.svg)](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID)
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/MARKETPLACE_ID.svg)](https://plugins.jetbrains.com/plugin/MARKETPLACE_ID)
 
-## Template ToDo list
-- [x] Create a new [IntelliJ Platform Plugin Template][template] project.
-- [ ] Get familiar with the [template documentation][template].
-- [ ] Adjust the [pluginGroup](./gradle.properties) and [pluginName](./gradle.properties), as well as the [id](./src/main/resources/META-INF/plugin.xml) and [sources package](./src/main/kotlin).
-- [ ] Adjust the plugin description in `README` (see [Tips][docs:plugin-description])
-- [ ] Review the [Legal Agreements](https://plugins.jetbrains.com/docs/marketplace/legal-agreements.html?from=IJPluginTemplate).
-- [ ] [Publish a plugin manually](https://plugins.jetbrains.com/docs/intellij/publishing-plugin.html?from=IJPluginTemplate) for the first time.
-- [ ] Set the `MARKETPLACE_ID` in the above README badges. You can obtain it once the plugin is published to JetBrains Marketplace.
-- [ ] Set the [Plugin Signing](https://plugins.jetbrains.com/docs/intellij/plugin-signing.html?from=IJPluginTemplate) related [secrets](https://github.com/JetBrains/intellij-platform-plugin-template#environment-variables).
-- [ ] Set the [Deployment Token](https://plugins.jetbrains.com/docs/marketplace/plugin-upload.html?from=IJPluginTemplate).
-- [ ] Click the <kbd>Watch</kbd> button on the top of the [IntelliJ Platform Plugin Template][template] to be notified about releases containing new features and fixes.
-
 <!-- Plugin description -->
-This Fancy IntelliJ Platform Plugin is going to be your implementation of the brilliant ideas that you have.
+This IntelliJ IDEA Plugin provides auto-completion, signature hints, inlay support and some live templates for the Minecraft 1.12 Mod [GroovyScript](https://github.com/CleanroomMC/GroovyScript/tree/master).
 
-This specific section is a source for the [plugin.xml](/src/main/resources/META-INF/plugin.xml) file which will be extracted by the [Gradle](/build.gradle.kts) during the build process.
+You must enable the GroovyScript Language Server in your instance. See the [GroovyScript Docs](https://cleanroommc.com/groovy-script/getting_started/editors#start-the-language-server) for how to do this.
 
-To keep everything working, do not remove `<!-- ... -->` sections. 
+This plugin utilizes the [Language Server Protocol](https://microsoft.github.io/language-server-protocol/specification) to provide this support, through the [LSP4IJ](https://github.com/RedhatDevtools/lsp4ij) plugin.
+
+LSP4IJ is a hard dependency of this Plugin. IntelliJ's own support has not been used due to limited feature sets and support being restricted to Ultimate versions.
+
+For support with GroovyScript versions pre-1.2.0, please disable the `GroovyScript texture` inlay hint, in the `Other -> Groovy` category. See the [IntelliJ Docs](https://www.jetbrains.com/help/idea/inlay-hints.html#enable_inlay_hints) for how to do this.
+
+**This plugin is still in development. Future planned features are in the [roadmap](https://github.com/IntegerLimit/GroovyScriptPlugin#roadmap).**
 <!-- Plugin description end -->
 
 ## Installation
@@ -40,7 +34,7 @@ To keep everything working, do not remove `<!-- ... -->` sections.
 
 - Manually:
 
-  Download the [latest release](https://github.com/IntegerLimit/GroovyScriptPlugin/releases/latest) and install it manually using
+  Download the [latest release](https://github.com/IntegerLimit/GroovyScriptPlugin/releases/latest) or the [latest nightly build](https://nightly.link/IntegerLimit/GroovyScriptPlugin/workflows/build/main?preview) and install it manually using
   <kbd>Settings/Preferences</kbd> > <kbd>Plugins</kbd> > <kbd>⚙️</kbd> > <kbd>Install plugin from disk...</kbd>
 
 
@@ -54,7 +48,7 @@ Plugin based on the [IntelliJ Platform Plugin Template][template].
 ### Textures
 - [x] Texture display
 - [x] Texture tooltips
-- [ ] Implement texture support for `metaitem` (in GregTech's repo)
+- [ ] Texture settings: Improve preview
 
 ### Other
 - [ ] Allow localization
