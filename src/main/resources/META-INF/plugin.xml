@@ -2,7 +2,7 @@
 <idea-plugin>
     <id>com.intlimit.grsplugin</id>
     <name>GroovyScript</name>
-    <vendor>Nomi-CEu</vendor>
+    <vendor>IntegerLimit</vendor>
 
     <depends>com.intellij.modules.platform</depends>
     <depends>com.intellij.modules.lang</depends>
