@@ -3,5 +3,16 @@
 # GroovyScriptPlugin Changelog
 
 ## [Unreleased]
-### Added
-- Initial scaffold created from [IntelliJ Platform Plugin Template](https://github.com/JetBrains/intellij-platform-plugin-template)
+
+## [0.1.1] - 2024-11-24
+
+### Bugs
+
+- Fixed NPE due to null file identifiers
+
+### Features
+
+- Added plugin icon
+
+[Unreleased]: https://github.com/IntegerLimit/GroovyScriptPlugin/compare/v0.1.1...HEAD
+[0.1.1]: https://github.com/IntegerLimit/GroovyScriptPlugin/commits/v0.1.1
