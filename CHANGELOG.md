@@ -22,6 +22,6 @@
 - Added texture inlays
 - Added texture inlay tooltips
 
-[Unreleased]: https://github.com/IntegerLimit/GroovyScriptPlugin/compare/v0.1.1...HEAD
-[0.1.1]: https://github.com/IntegerLimit/GroovyScriptPlugin/commits/v0.1.1
-[0.1.0]: https://github.com/IntegerLimit/GroovyScriptPlugin/commits/v0.1.0
+[Unreleased]: https://github.com/IntegerLimit/GroovyScriptPlugin/compare/0.1.1...HEAD
+[0.1.1]: https://github.com/IntegerLimit/GroovyScriptPlugin/commits/0.1.1
+[0.1.0]: https://github.com/IntegerLimit/GroovyScriptPlugin/commits/0.1.0
