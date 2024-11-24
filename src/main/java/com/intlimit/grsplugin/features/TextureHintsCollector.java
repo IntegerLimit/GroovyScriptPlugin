@@ -56,8 +56,11 @@ public class TextureHintsCollector extends FactoryInlayHintsCollector {
     }
 
     protected void doCollect(@NotNull InlayHintsSink inlayHintsSink) {
+        var virtualFile = file.getVirtualFile();
+        if (virtualFile == null) return;
+
         var params = new GetTextureParams();
-        params.setTextDocument(LSPIJUtils.toTextDocumentIdentifier(file.getVirtualFile()));
+        params.setTextDocument(LSPIJUtils.toTextDocumentIdentifier(virtualFile));
 
         CompletableFuture<List<GetTextureResponse>> future = LanguageServerManager.getInstance(file.getProject())
                 .getLanguageServer("groovyscript")
