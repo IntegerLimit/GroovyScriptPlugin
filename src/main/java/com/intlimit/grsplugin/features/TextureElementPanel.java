@@ -23,6 +23,7 @@ public class TextureElementPanel extends JPanel {
     public TextureElementPanel(List<Pair<String, ImageIcon>> tooltips) {
         this.tooltips = tooltips;
 
+        setBackground(HintUtil.getInformationColor());
         setBorder(JBUI.Borders.empty(6, 6, 5, 6));
         var layout = new GridLayout(0, 1);
         layout.setVgap(6);
