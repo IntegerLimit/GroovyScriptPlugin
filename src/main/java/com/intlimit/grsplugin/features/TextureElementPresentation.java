@@ -42,6 +42,7 @@ public class TextureElementPresentation extends BasePresentation {
         try {
             this.img = ImageIO.read(new File(uri));
         } catch (IOException e) {
+            log.error("Error trying to read texture from uri: " + uri);
             log.error(e);
             this.img = null;
         }
