@@ -5,7 +5,7 @@
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/25915-groovyscript.svg)](https://plugins.jetbrains.com/plugin/25915-groovyscript)
 
 <!-- Plugin description -->
-This IntelliJ IDEA Plugin provides auto-completion, signature hints, inlay support and some live templates for the Minecraft 1.12 Mod [GroovyScript](https://github.com/CleanroomMC/GroovyScript/tree/master).
+This IntelliJ-based Plugin provides auto-completion, signature hints, inlay support and some live templates for the Minecraft 1.12 Mod [GroovyScript](https://github.com/CleanroomMC/GroovyScript/tree/master).
 
 You must enable the GroovyScript Language Server in your instance. See the [GroovyScript Docs](https://cleanroommc.com/groovy-script/getting_started/editors#start-the-language-server) for how to do this.
 
