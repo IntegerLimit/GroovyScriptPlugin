@@ -16,9 +16,10 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -28,24 +29,17 @@ public class TextureElementPresentation extends BasePresentation {
 
     private static final Logger log = Logger.getInstance(TextureElementPresentation.class);
     private static final int BUFFER = 4;
-    private static final Pattern imgMatcher = Pattern.compile("!\\[]\\(file:(.+)\\)\\s");
+    private static final Pattern imgMatcher = Pattern.compile("!\\[]\\((file:.+)\\)\\s");
 
     @Nullable
-    private BufferedImage img;
+    private final ImageIcon img;
     private final List<Pair<String, ImageIcon>> tooltips;
     private final Editor editor;
     private LightweightHint hint;
 
     public TextureElementPresentation(Editor editor, String uri, List<String> tooltips) {
         this.editor = editor;
-        uri = uri.replaceFirst("file:", ""); // Strip `file:` from start of uri
-        try {
-            this.img = ImageIO.read(new File(uri));
-        } catch (IOException e) {
-            log.error("Error trying to read texture from uri: " + uri);
-            log.error(e);
-            this.img = null;
-        }
+        this.img = getImg(uri);
 
         this.tooltips = new ArrayList<>();
         for (var tooltip : tooltips) {
@@ -53,22 +47,37 @@ public class TextureElementPresentation extends BasePresentation {
             ImageIcon icon = null;
             if (matcher.find()) {
                 tooltip = matcher.replaceFirst("").trim();
-                icon = new ImageIcon(matcher.group(1));
+                icon = getImg(matcher.group(1));
             }
             this.tooltips.add(Pair.of(tooltip, icon));
+        }
+    }
+
+    @Nullable
+    private static ImageIcon getImg(String uri) {
+        try {
+            return new ImageIcon(ImageIO.read(new File(new URI(uri))));
+        } catch (IOException e) {
+            log.error("Error trying to read texture from uri: " + uri);
+            log.error(e);
+            return null;
+        } catch (URISyntaxException e) {
+            log.error("Invalid uri: " + uri);
+            log.error(e);
+            return null;
         }
     }
 
     @Override
     public int getHeight() {
         if (img == null) return 0;
-        return img.getHeight() + BUFFER;
+        return img.getIconHeight() + BUFFER;
     }
 
     @Override
     public int getWidth() {
         if (img == null) return 0;
-        return img.getWidth() + BUFFER;
+        return img.getIconWidth() + BUFFER;
     }
 
     @Override
@@ -76,7 +85,7 @@ public class TextureElementPresentation extends BasePresentation {
         if (img == null) {
             return;
         }
-        graphics2D.drawImage(img, BUFFER / 2, BUFFER / 2, null);
+        img.paintIcon(null, graphics2D, BUFFER / 2, BUFFER / 2);
     }
 
     @Override
