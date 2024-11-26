@@ -1,15 +1,17 @@
 package com.intlimit.grsplugin.features;
 
 import com.intellij.codeInsight.hint.HintUtil;
-import com.intellij.ui.HintHint;
+import com.intellij.ide.IdeTooltipManager;
+import com.intellij.ui.*;
 import com.intellij.util.ui.JBUI;
+import com.intellij.util.ui.StartupUiUtil;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-import static com.intellij.codeInsight.hint.HintUtil.createLabel;
+import static com.intellij.codeInsight.hint.HintUtil.createHintBorder;
 
 public class TextureElementPanel extends JPanel {
 
@@ -57,11 +59,68 @@ public class TextureElementPanel extends JPanel {
         return new Dimension(getPreferredSize().width, MAX_TOOLTIP_HEIGHT);
     }
 
-    @SuppressWarnings("UnstableApiUsage")
-    private HintUtil.HintLabel getHintLabel(Pair<String, ImageIcon> tooltip) {
+    private HintLabel getHintLabel(Pair<String, ImageIcon> tooltip) {
         HintHint hintHint = HintUtil.getInformationHint();
-        HintUtil.HintLabel label = createLabel(tooltip.getKey(), tooltip.getValue(), getBackground(), hintHint);
-        label.setBackground(getBackground());
-        return label;
+        return new HintLabel(tooltip, getBackground(), hintHint);
+    }
+
+    /**
+     * Essentially just HintUtil -> HintLabel, but extracted out (due to internal api), and cleaned up for personal use.
+     */
+    public static final class HintLabel extends JPanel {
+        private JEditorPane pane;
+
+        private HintLabel(Pair<String, ImageIcon> tooltip, Color color, HintHint hintHint) {
+            setLayout(new BorderLayout(NewUI.isEnabled() ? 6 : 0, 0));
+            setBackground(color);
+
+            if (tooltip.getKey() != null)
+                setText(tooltip.getKey(), hintHint);
+            if (tooltip.getValue() != null)
+                setIcon(tooltip.getValue());
+
+            if (!hintHint.isAwtTooltip()) {
+                setBorder(createHintBorder());
+                setForeground(JBColor.foreground());
+                setFont(StartupUiUtil.getLabelFont().deriveFont(Font.BOLD));
+                setOpaque(true);
+            }
+        }
+
+        private void setText(String s, HintHint hintHint) {
+            pane = IdeTooltipManager.initPane(s, hintHint, null);
+            add(pane, BorderLayout.CENTER);
+
+            setOpaque(true);
+            setBackground(hintHint.getTextBackground());
+
+            revalidate();
+            repaint();
+        }
+
+        private void setIcon(Icon icon) {
+            JLabel iconLabel = new JLabel(icon, SwingConstants.CENTER);
+            iconLabel.setVerticalAlignment(SwingConstants.TOP);
+
+            add(iconLabel, BorderLayout.WEST);
+
+            revalidate();
+            repaint();
+        }
+
+        @Override
+        public boolean requestFocusInWindow() {
+            if (pane == null) return super.requestFocusInWindow();
+            return pane.requestFocusInWindow();
+        }
+
+        @Override
+        public String toString() {
+            return "Hint: text='" + getText() + "'";
+        }
+
+        public String getText() {
+            return pane != null ? pane.getText() : "";
+        }
     }
 }
