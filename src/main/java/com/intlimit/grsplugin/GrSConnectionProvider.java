@@ -1,14 +1,14 @@
 package com.intlimit.grsplugin;
 
-import com.intellij.openapi.diagnostic.Logger;
-import com.redhat.devtools.lsp4ij.server.CannotStartProcessException;
-import com.redhat.devtools.lsp4ij.server.StreamConnectionProvider;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.util.Objects;
+
+import com.intellij.openapi.diagnostic.Logger;
+import com.redhat.devtools.lsp4ij.server.CannotStartProcessException;
+import com.redhat.devtools.lsp4ij.server.StreamConnectionProvider;
 
 public class GrSConnectionProvider implements StreamConnectionProvider {
 

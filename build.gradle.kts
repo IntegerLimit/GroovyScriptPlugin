@@ -4,6 +4,8 @@ import org.jetbrains.intellij.platform.gradle.TestFrameworkType
 
 plugins {
     id("java") // Java support
+    id("com.diffplug.spotless") version "7.0.0.BETA4"
+    id("eclipse")
     alias(libs.plugins.kotlin) // Kotlin support
     alias(libs.plugins.intelliJPlatform) // IntelliJ Platform Gradle Plugin
     alias(libs.plugins.changelog) // Gradle Changelog Plugin
@@ -47,6 +49,30 @@ dependencies {
         pluginVerifier()
         zipSigner()
         testFramework(TestFrameworkType.Platform)
+    }
+}
+
+spotless {
+    encoding("UTF-8")
+
+    format("misc", {
+        target(".gitignore")
+        trimTrailingWhitespace()
+        indentWithSpaces(4)
+        endWithNewline()
+    })
+    java {
+        target("src/main/java/**/*.java", "src/test/java/**/*.java") // exclude api as they are not our files
+
+        val orderFile = project.file("spotless.importorder")
+        val formatFile = project.file("spotless.eclipseformat.xml")
+
+        toggleOffOn()
+        importOrderFile(orderFile)
+        removeUnusedImports()
+        endWithNewline()
+        //noinspection GroovyAssignabilityCheck
+        eclipse("4.19.0").configFile(formatFile)
     }
 }
 

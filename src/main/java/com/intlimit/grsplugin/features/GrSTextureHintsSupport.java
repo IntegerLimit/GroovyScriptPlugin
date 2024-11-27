@@ -1,5 +1,11 @@
 package com.intlimit.grsplugin.features;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+
+import org.jetbrains.annotations.NotNull;
+
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Key;
@@ -10,13 +16,9 @@ import com.intlimit.grsplugin.server.GrSServerAPI;
 import com.redhat.devtools.lsp4ij.LanguageServerManager;
 import com.redhat.devtools.lsp4ij.features.AbstractLSPWorkspaceFeatureSupport;
 import com.redhat.devtools.lsp4ij.internal.CancellationSupport;
-import org.jetbrains.annotations.NotNull;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.concurrent.CompletableFuture;
-
-public class GrSTextureHintsSupport extends AbstractLSPWorkspaceFeatureSupport<GetTextureParams, List<GetTextureResponse>> {
+public class GrSTextureHintsSupport extends
+                                    AbstractLSPWorkspaceFeatureSupport<GetTextureParams, List<GetTextureResponse>> {
 
     private static final Key<GrSTextureHintsSupport> GRS_TEXTURE_HINTS_SUPPORT = Key.create("grs.lsp.texture.hints");
     private PsiFile file;
@@ -53,12 +55,13 @@ public class GrSTextureHintsSupport extends AbstractLSPWorkspaceFeatureSupport<G
     }
 
     @Override
-    protected CompletableFuture<List<GetTextureResponse>> doLoad(GetTextureParams getTextureParams, CancellationSupport cancellationSupport) {
+    protected CompletableFuture<List<GetTextureResponse>> doLoad(GetTextureParams getTextureParams,
+                                                                 CancellationSupport cancellationSupport) {
         return cancellationSupport.execute(
                 LanguageServerManager.getInstance(file.getProject())
                         .getLanguageServer("groovyscript")
-                        .thenApplyAsync(languageServerItem ->
-                                languageServerItem != null ? languageServerItem.getServer() : null)
+                        .thenApplyAsync(languageServerItem -> languageServerItem != null ?
+                                languageServerItem.getServer() : null)
                         .thenComposeAsync(ls -> {
                             if (ls == null) {
                                 return CompletableFuture.completedFuture(Collections.emptyList());

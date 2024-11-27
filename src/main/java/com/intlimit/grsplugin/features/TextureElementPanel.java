@@ -1,17 +1,19 @@
 package com.intlimit.grsplugin.features;
 
+import static com.intellij.codeInsight.hint.HintUtil.createHintBorder;
+
+import java.awt.*;
+import java.util.List;
+
+import javax.swing.*;
+
+import org.apache.commons.lang3.tuple.Pair;
+
 import com.intellij.codeInsight.hint.HintUtil;
 import com.intellij.ide.IdeTooltipManager;
 import com.intellij.ui.*;
 import com.intellij.util.ui.JBUI;
 import com.intellij.util.ui.StartupUiUtil;
-import org.apache.commons.lang3.tuple.Pair;
-
-import javax.swing.*;
-import java.awt.*;
-import java.util.List;
-
-import static com.intellij.codeInsight.hint.HintUtil.createHintBorder;
 
 public class TextureElementPanel extends JPanel {
 
@@ -69,6 +71,7 @@ public class TextureElementPanel extends JPanel {
      * Essentially just HintUtil -> HintLabel, but extracted out (due to internal api), and cleaned up for personal use.
      */
     public static final class HintLabel extends JPanel {
+
         private JEditorPane pane;
 
         private HintLabel(Pair<String, ImageIcon> tooltip, Color color, HintHint hintHint) {

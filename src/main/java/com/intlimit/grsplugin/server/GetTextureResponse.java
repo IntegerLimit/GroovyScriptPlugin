@@ -1,13 +1,14 @@
 package com.intlimit.grsplugin.server;
 
-import org.eclipse.lsp4j.Range;
-import org.eclipse.lsp4j.util.ToStringBuilder;
-
 import java.util.List;
 import java.util.Objects;
 
+import org.eclipse.lsp4j.Range;
+import org.eclipse.lsp4j.util.ToStringBuilder;
+
 @SuppressWarnings("unused")
 public class GetTextureResponse {
+
     private Range range;
     private String textureUri;
     private List<String> tooltips;
@@ -51,7 +52,8 @@ public class GetTextureResponse {
         if (o == null || getClass() != o.getClass()) return false;
 
         GetTextureResponse that = (GetTextureResponse) o;
-        return Objects.equals(range, that.range) && Objects.equals(textureUri, that.textureUri) && Objects.equals(tooltips, that.tooltips);
+        return Objects.equals(range, that.range) && Objects.equals(textureUri, that.textureUri) &&
+                Objects.equals(tooltips, that.tooltips);
     }
 
     @Override

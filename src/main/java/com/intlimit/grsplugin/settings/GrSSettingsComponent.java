@@ -1,5 +1,7 @@
 package com.intlimit.grsplugin.settings;
 
+import javax.swing.*;
+
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.ui.ComponentValidator;
 import com.intellij.openapi.ui.ValidationInfo;
@@ -8,8 +10,6 @@ import com.intellij.ui.components.JBCheckBox;
 import com.intellij.ui.components.JBLabel;
 import com.intellij.ui.components.JBTextField;
 import com.intellij.util.ui.FormBuilder;
-
-import javax.swing.*;
 
 public class GrSSettingsComponent {
 
@@ -78,5 +78,4 @@ public class GrSSettingsComponent {
     public boolean isModified(GrSSettings.State state) {
         return getPort() != state.port || enabled() != state.enable;
     }
-
 }

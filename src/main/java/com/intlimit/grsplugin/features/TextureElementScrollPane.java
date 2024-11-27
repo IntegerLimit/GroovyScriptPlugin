@@ -1,12 +1,13 @@
 package com.intlimit.grsplugin.features;
 
-import com.intellij.util.ui.JBUI;
-import com.intellij.util.ui.TimerUtil;
-
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.*;
+
+import com.intellij.util.ui.JBUI;
+import com.intellij.util.ui.TimerUtil;
 
 /**
  * An vertical infinite looping, vertical auto-scrolling, scroll pane.

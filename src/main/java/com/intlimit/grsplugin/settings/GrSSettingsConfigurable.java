@@ -1,17 +1,20 @@
 package com.intlimit.grsplugin.settings;
 
+import java.util.Objects;
+
+import javax.swing.*;
+
+import org.jetbrains.annotations.Nullable;
+
 import com.intellij.openapi.Disposable;
 import com.intellij.openapi.options.Configurable;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Disposer;
 import com.intellij.openapi.util.NlsContexts;
 import com.redhat.devtools.lsp4ij.LanguageServerManager;
-import org.jetbrains.annotations.Nullable;
-
-import javax.swing.*;
-import java.util.Objects;
 
 public class GrSSettingsConfigurable implements Configurable {
+
     private final Project project;
     private final Disposable disposable;
 
@@ -51,7 +54,6 @@ public class GrSSettingsConfigurable implements Configurable {
         } else {
             LanguageServerManager.getInstance(project).stop("groovyscript");
         }
-
     }
 
     @Override

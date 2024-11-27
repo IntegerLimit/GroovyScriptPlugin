@@ -1,13 +1,14 @@
 package com.intlimit.grsplugin.server;
 
+import java.util.Objects;
+
 import org.eclipse.lsp4j.TextDocumentIdentifier;
 import org.eclipse.lsp4j.WorkDoneProgressAndPartialResultParams;
 import org.eclipse.lsp4j.util.ToStringBuilder;
 
-import java.util.Objects;
-
 @SuppressWarnings("unused")
 public class GetTextureParams extends WorkDoneProgressAndPartialResultParams {
+
     private TextDocumentIdentifier textDocument;
 
     public TextDocumentIdentifier getTextDocument() {

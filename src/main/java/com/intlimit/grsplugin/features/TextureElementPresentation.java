@@ -1,19 +1,5 @@
 package com.intlimit.grsplugin.features;
 
-import com.intellij.codeInsight.hint.HintManager;
-import com.intellij.codeInsight.hint.HintManagerImpl;
-import com.intellij.codeInsight.hints.presentation.BasePresentation;
-import com.intellij.openapi.diagnostic.Logger;
-import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.editor.markup.TextAttributes;
-import com.intellij.ui.HintHint;
-import com.intellij.ui.LightweightHint;
-import org.apache.commons.lang3.tuple.Pair;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.io.File;
@@ -23,6 +9,22 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+
+import org.apache.commons.lang3.tuple.Pair;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import com.intellij.codeInsight.hint.HintManager;
+import com.intellij.codeInsight.hint.HintManagerImpl;
+import com.intellij.codeInsight.hints.presentation.BasePresentation;
+import com.intellij.openapi.diagnostic.Logger;
+import com.intellij.openapi.editor.Editor;
+import com.intellij.openapi.editor.markup.TextAttributes;
+import com.intellij.ui.HintHint;
+import com.intellij.ui.LightweightHint;
 
 @SuppressWarnings("UnstableApiUsage")
 public class TextureElementPresentation extends BasePresentation {
@@ -114,8 +116,10 @@ public class TextureElementPresentation extends BasePresentation {
 
         if (imagePanel.needsScrolling()) {
             hint = new LightweightHint(new TextureElementScrollPane(imagePanel)) {
+
                 @Override
-                public void show(@NotNull JComponent parentComponent, int x, int y, JComponent focusBackComponent, @NotNull HintHint hintHint) {
+                public void show(@NotNull JComponent parentComponent, int x, int y, JComponent focusBackComponent,
+                                 @NotNull HintHint hintHint) {
                     super.show(parentComponent, x, y, focusBackComponent, hintHint);
                     ((TextureElementScrollPane) getComponent()).startIfNeeded();
                 }
@@ -132,16 +136,14 @@ public class TextureElementPresentation extends BasePresentation {
         var constraint = HintManager.ABOVE;
         var pointOnEditor = locationAt(editor.getContentComponent(), event);
         var point = HintManagerImpl.getHintPosition(hint, editor, editor.xyToVisualPosition(pointOnEditor), constraint);
-        point.x = (int) (event.getXOnScreen() - editor.getContentComponent().getTopLevelAncestor().getLocationOnScreen().getX());
+        point.x = (int) (event.getXOnScreen() -
+                editor.getContentComponent().getTopLevelAncestor().getLocationOnScreen().getX());
 
         HintManagerImpl.getInstanceImpl().showEditorHint(hint, editor, point,
-                HintManager.HIDE_BY_ANY_KEY
-                | HintManager.HIDE_BY_TEXT_CHANGE
-                | HintManager.HIDE_BY_SCROLLING,
+                HintManager.HIDE_BY_ANY_KEY | HintManager.HIDE_BY_TEXT_CHANGE | HintManager.HIDE_BY_SCROLLING,
                 0,
                 false,
-                HintManagerImpl.createHintHint(editor, point, hint, constraint).setContentActive(false)
-        );
+                HintManagerImpl.createHintHint(editor, point, hint, constraint).setContentActive(false));
     }
 
     private Point locationAt(JComponent component, MouseEvent event) {
