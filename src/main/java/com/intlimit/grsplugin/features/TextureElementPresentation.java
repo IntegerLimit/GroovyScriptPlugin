@@ -53,6 +53,10 @@ public class TextureElementPresentation extends BasePresentation {
         }
     }
 
+    public boolean invalid() {
+        return img == null || tooltips.isEmpty();
+    }
+
     @Nullable
     private static ImageIcon getImg(String uri) {
         try {
