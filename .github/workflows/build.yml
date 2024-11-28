@@ -38,7 +38,7 @@ jobs:
 
       # Fixes out of disk space error
       - name: Free Disk Space (Ubuntu)
-        uses: jlumbroso/free-disk-space@main
+        uses: jlumbroso/free-disk-space@v1.3.1
         with:
           tool-cache: false
           android: true
