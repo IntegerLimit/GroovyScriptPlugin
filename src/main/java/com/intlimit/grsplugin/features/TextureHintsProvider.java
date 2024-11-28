@@ -6,12 +6,13 @@ import static com.redhat.devtools.lsp4ij.internal.CompletableFutures.waitUntilDo
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.CancellationException;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.ExecutionException;
+import java.util.concurrent.*;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicReference;
 
 import javax.swing.*;
 
+import org.apache.commons.lang3.tuple.Pair;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -23,11 +24,17 @@ import com.intellij.lang.Language;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.progress.ProcessCanceledException;
+import com.intellij.openapi.vfs.VirtualFile;
+import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intlimit.grsplugin.server.GetTextureParams;
 import com.intlimit.grsplugin.server.GetTextureResponse;
+import com.intlimit.grsplugin.server.GrSServerAPI;
 import com.redhat.devtools.lsp4ij.LSPIJUtils;
+import com.redhat.devtools.lsp4ij.LanguageServerManager;
+import com.redhat.devtools.lsp4ij.ServerStatus;
 import com.redhat.devtools.lsp4ij.features.AbstractLSPInlayHintsProvider;
+import com.redhat.devtools.lsp4ij.internal.CancellationSupport;
 
 @SuppressWarnings("UnstableApiUsage")
 public class TextureHintsProvider extends AbstractLSPInlayHintsProvider {
@@ -35,6 +42,11 @@ public class TextureHintsProvider extends AbstractLSPInlayHintsProvider {
     private static final Logger log = Logger.getInstance(TextureHintsProvider.class);
 
     private final SettingsKey<NoSettings> key = new SettingsKey<>("GroovyScript.TextureHintsProvider");
+    private static final AtomicReference<String> previousFile = new AtomicReference<>("");
+    private static final AtomicLong previousSavedModStamp = new AtomicLong(-1);
+    private static final AtomicReference<CancellationSupport> cancellation = new AtomicReference<>(null);
+    private static volatile CompletableFuture<List<Pair<GetTextureResponse, PsiElement>>> previousResults = CompletableFuture
+            .completedFuture(Collections.emptyList());
 
     @Override
     public @NotNull NoSettings createSettings() {
@@ -89,34 +101,121 @@ public class TextureHintsProvider extends AbstractLSPInlayHintsProvider {
         var virtualFile = psiFile.getVirtualFile();
         if (virtualFile == null) return;
 
+        String path = virtualFile.getPath();
+        long modStamp = psiFile.getModificationStamp();
+
+        if (!path.equals(previousFile.get()) || modStamp != previousSavedModStamp.get())
+            handleNewRequest(editor, psiFile, virtualFile, path, modStamp);
+
+        if (waitForResults(psiFile)) return;
+
+        addResultsToSink(editor, inlayHintsSink);
+    }
+
+    /**
+     * Returns true if exceptional completion, false if success.
+     */
+    private boolean waitForResults(PsiFile file) {
+        try {
+            waitUntilDone(previousResults, file);
+
+            if (!isDoneNormally(previousResults)) return true;
+        } catch (ProcessCanceledException | CancellationException ignore) {} catch (ExecutionException e) {
+            log.error("Error whilst consuming LSP 'groovyScript/textureDecoration' request", e);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Adds results from `previousResults` to a inlayHintsSink.
+     */
+    private void addResultsToSink(Editor editor, InlayHintsSink inlayHintsSink) {
+        var results = previousResults.getNow(Collections.emptyList());
+        var doc = editor.getDocument();
+        for (var el : results) {
+            var presentation = new TextureElementPresentation(editor, el.getKey().getTextureUri(),
+                    el.getKey().getTooltips());
+            if (presentation.invalid()) continue;
+
+            int offset;
+            if (el.getValue() == null)
+                offset = LSPIJUtils.toOffset(el.getKey().getRange().getStart(), doc);
+            else
+                offset = el.getValue().getTextRange().getStartOffset();
+
+            inlayHintsSink.addInlineElement(offset, false,
+                    presentation,
+                    false);
+        }
+    }
+
+    /**
+     * Sends a new request to the LSP for inlay hints, with necessary cached values set and cancellations performed.
+     */
+    private void handleNewRequest(Editor editor, PsiFile psiFile, VirtualFile virtualFile, String path, long modStamp) {
         var params = new GetTextureParams();
         params.setTextDocument(LSPIJUtils.toTextDocumentIdentifier(virtualFile));
 
-        CompletableFuture<List<GetTextureResponse>> future = GrSTextureHintsSupport.getSupport(psiFile)
-                .getTextureHints(params);
+        var status = LanguageServerManager.getInstance(psiFile.getProject())
+                .getServerStatus("groovyscript");
 
-        try {
-            waitUntilDone(future);
-
-            if (!isDoneNormally(future)) return;
-
-            var result = future.getNow(Collections.emptyList());
-            var doc = editor.getDocument();
-
-            for (var res : result) {
-                var offset = LSPIJUtils.toOffset(res.getRange().getStart(), doc);
-                var presentation = new TextureElementPresentation(editor, res.getTextureUri(), res.getTooltips());
-                if (presentation.invalid()) continue;
-                inlayHintsSink.addInlineElement(offset, false,
-                        presentation,
-                        false);
-            }
-        } catch (ProcessCanceledException | CancellationException ignore) {} catch (ExecutionException e) {
-            log.error("Error whilst consuming LSP 'groovyScript/textureDecoration' request", e);
-        } finally {
-            if (!future.isDone()) {
-                pendingFutures.add(future);
-            }
+        if (status != ServerStatus.started) {
+            // Not initialized yet
+            log.error("Inlay Hint request cancelling, GrS LSP server not available.");
+            return;
         }
+
+        // cancel any existing requests
+        // reduces load on intelliJ, no effect on LSP (until cancelling is supported)
+        var toCancel = cancellation.get();
+        if (toCancel != null)
+            toCancel.cancel();
+
+        previousFile.set(path);
+        previousSavedModStamp.set(modStamp);
+
+        previousResults = getTextureHints(psiFile, params)
+                .thenApplyAsync(result -> {
+                    if (modStamp != previousSavedModStamp.get()) return Collections.emptyList();
+
+                    var doc = editor.getDocument();
+                    List<Pair<GetTextureResponse, PsiElement>> elements = new ArrayList<>();
+
+                    for (var res : result) {
+                        var offset = LSPIJUtils.toOffset(res.getRange().getStart(), doc);
+                        var el = psiFile.findElementAt(offset);
+
+                        if (el == null)
+                            // Still add the inlay, we can use the doc offset as a backup
+                            elements.add(Pair.of(res, null));
+                        else
+                            elements.add(Pair.of(res, el));
+                    }
+
+                    return elements;
+                });
+
+        // Allow for cancellation
+        var cancel = new CancellationSupport();
+        cancel.execute(previousResults);
+        cancellation.set(cancel);
+    }
+
+    /**
+     * Gets texture hints from the LSP.
+     */
+    private CompletableFuture<List<GetTextureResponse>> getTextureHints(PsiFile file, GetTextureParams params) {
+        return LanguageServerManager.getInstance(file.getProject())
+                .getLanguageServer("groovyscript")
+                .thenApplyAsync(languageServerItem -> languageServerItem != null ?
+                        languageServerItem.getServer() : null)
+                .thenComposeAsync(ls -> {
+                    if (ls == null) {
+                        return CompletableFuture.completedFuture(Collections.emptyList());
+                    }
+                    GrSServerAPI myServer = (GrSServerAPI) ls;
+                    return myServer.getTextureDecoration(params);
+                });
     }
 }
