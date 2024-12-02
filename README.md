@@ -5,11 +5,11 @@
 [![Downloads](https://img.shields.io/jetbrains/plugin/d/25915-groovyscript.svg)](https://plugins.jetbrains.com/plugin/25915-groovyscript)
 
 <!-- Plugin description -->
-This IntelliJ-based Plugin provides auto-completion, signature hints, inlay support and some live templates for the Minecraft 1.12 Mod [GroovyScript](https://github.com/CleanroomMC/GroovyScript/tree/master).
+This IntelliJ-based Plugin provides auto-completion, signature hints, inlay support and some live templates for the Minecraft 1.12 Mod [GroovyScript](https://github.com/CleanroomMC/GroovyScript/tree/master). This is similar to the corresponding VS Code Plugin, found on the [marketplace](https://marketplace.visualstudio.com/items?itemName=CleanroomMC.groovyscript).
 
 You must enable the GroovyScript Language Server in your instance. See the [GroovyScript Docs](https://cleanroommc.com/groovy-script/getting_started/editors#start-the-language-server) for how to do this.
 
-This plugin utilizes the [Language Server Protocol](https://microsoft.github.io/language-server-protocol/specification) to provide this support, through the [LSP4IJ](https://github.com/RedhatDevtools/lsp4ij) plugin.
+This plugin utilizes the [Language Server Protocol](https://microsoft.github.io/language-server-protocol/specification) to provide this support, through the [LSP4IJ](https://github.com/redhat-developer/lsp4ij) plugin.
 
 LSP4IJ is a hard dependency of this Plugin. IntelliJ's own support has not been used due to limited feature sets and support being restricted to Ultimate versions.
 
@@ -52,6 +52,7 @@ Plugin based on the [IntelliJ Platform Plugin Template][template].
 
 ### Other
 - [ ] Allow localization
+- [ ] Improve handling of server status, especially after failure to connect or instance being closed
 - [ ] Fix completion removing quotes before
 - [ ] Fix completion not working with object mappers on normal input (maybe see if IntelliJ's Typescript support can help as a base, it provides completion for object keys)
 - [ ] Add shortcut snippets (crafting shapeless, etc.)
