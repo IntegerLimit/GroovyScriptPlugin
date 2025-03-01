@@ -6,6 +6,7 @@ import static com.redhat.devtools.lsp4ij.internal.CompletableFutures.waitUntilDo
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
@@ -97,7 +98,7 @@ public class TextureHintsProvider extends AbstractLSPInlayHintsProvider {
     @Override
     protected void doCollect(@NotNull PsiFile psiFile, @NotNull Editor editor,
                              @NotNull PresentationFactory presentationFactory, @NotNull InlayHintsSink inlayHintsSink,
-                             @NotNull List<CompletableFuture> pendingFutures) {
+                             @NotNull Set<CompletableFuture<?>> pendingFutures) {
         var virtualFile = psiFile.getVirtualFile();
         if (virtualFile == null) return;
 
