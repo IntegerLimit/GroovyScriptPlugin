@@ -6,7 +6,6 @@ import static com.redhat.devtools.lsp4ij.internal.CompletableFutures.waitUntilDo
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
@@ -14,6 +13,7 @@ import java.util.concurrent.atomic.AtomicReference;
 import javax.swing.*;
 
 import org.apache.commons.lang3.tuple.Pair;
+import org.eclipse.lsp4j.TextDocumentIdentifier;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -97,8 +97,8 @@ public class TextureHintsProvider extends AbstractLSPInlayHintsProvider {
 
     @Override
     protected void doCollect(@NotNull PsiFile psiFile, @NotNull Editor editor,
-                             @NotNull PresentationFactory presentationFactory, @NotNull InlayHintsSink inlayHintsSink,
-                             @NotNull Set<CompletableFuture<?>> pendingFutures) {
+                             @NotNull PresentationFactory presentationFactory,
+                             @NotNull InlayHintsSink inlayHintsSink) {
         var virtualFile = psiFile.getVirtualFile();
         if (virtualFile == null) return;
 
@@ -156,7 +156,7 @@ public class TextureHintsProvider extends AbstractLSPInlayHintsProvider {
      */
     private void handleNewRequest(Editor editor, PsiFile psiFile, VirtualFile virtualFile, String path, long modStamp) {
         var params = new GetTextureParams();
-        params.setTextDocument(LSPIJUtils.toTextDocumentIdentifier(virtualFile));
+        params.setTextDocument(new TextDocumentIdentifier(LSPIJUtils.toUriAsString(virtualFile)));
 
         var status = LanguageServerManager.getInstance(psiFile.getProject())
                 .getServerStatus("groovyscript");
