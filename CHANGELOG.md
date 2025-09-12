@@ -4,6 +4,11 @@
 
 ## [Unreleased]
 
+## [0.1.6] - 2025-09-12
+
+- Support for IntelliJ Versions 2025.2.*
+- Update LSP4IJ to 0.15.0
+
 ## [0.1.5] - 2025-03-01
 
 - Bump LSP4IJ Version to 0.11.0
@@ -50,7 +55,8 @@ Notice: v0.1.3 has been skipped due to issues with Github Actions.
 - Added texture inlays
 - Added texture inlay tooltips
 
-[Unreleased]: https://github.com/IntegerLimit/GroovyScriptPlugin/compare/v0.1.5...HEAD
+[Unreleased]: https://github.com/IntegerLimit/GroovyScriptPlugin/compare/v0.1.6...HEAD
+[0.1.6]: https://github.com/IntegerLimit/GroovyScriptPlugin/compare/v0.1.5...v0.1.6
 [0.1.5]: https://github.com/IntegerLimit/GroovyScriptPlugin/compare/v0.1.4...v0.1.5
 [0.1.4]: https://github.com/IntegerLimit/GroovyScriptPlugin/compare/v0.1.1...v0.1.4
 [0.1.1]: https://github.com/IntegerLimit/GroovyScriptPlugin/compare/v0.1.0...v0.1.1
