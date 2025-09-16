@@ -162,8 +162,9 @@ public class TextureHintsProvider extends AbstractLSPInlayHintsProvider {
                 .getServerStatus("groovyscript");
 
         if (status != ServerStatus.started) {
-            // Not initialized yet
+            // Not initialized yet; reset prev results
             log.error("Inlay Hint request cancelling, GrS LSP server not available.");
+            previousResults = CompletableFuture.completedFuture(Collections.emptyList());
             return;
         }
 
