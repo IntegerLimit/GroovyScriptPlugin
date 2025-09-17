@@ -1,0 +1,30 @@
+<templateSet group="GroovyScript JEI">
+  <template name="rh" value="mods.jei.ingredient.removeAndHide($INGREDIENT$)" toReformat="false" toShortenFQNames="true"
+            key="live.template.rh.description" resource-bundle="messages.LiveTemplates">
+    <variable name="INGREDIENT" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="GROOVY_STATEMENT" value="true" />
+    </context>
+  </template>
+  <template name="h" value="mods.jei.ingredient.hide($INGREDIENT$)" toReformat="false" toShortenFQNames="true"
+            key="live.template.h.description" resource-bundle="messages.LiveTemplates">
+    <variable name="INGREDIENT" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="GROOVY_STATEMENT" value="true" />
+    </context>
+  </template>
+  <template name="hf" value="mods.jei.ingredient.hide(VanillaTypes.FLUID, $INGREDIENT$)" toReformat="false" toShortenFQNames="true"
+            key="live.template.hf.description" resource-bundle="messages.LiveTemplates">
+    <variable name="INGREDIENT" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="GROOVY_STATEMENT" value="true" />
+    </context>
+  </template>
+  <template name="rhf" value="mods.jei.ingredient.removeAndHide(VanillaTypes.FLUID, $INGREDIENT$)" toReformat="false" toShortenFQNames="true"
+            key="live.template.rhf.description" resource-bundle="messages.LiveTemplates">
+    <variable name="INGREDIENT" expression="" defaultValue="" alwaysStopAt="true" />
+    <context>
+      <option name="GROOVY_STATEMENT" value="true" />
+    </context>
+  </template>
+</templateSet>
