@@ -35,7 +35,6 @@ import com.redhat.devtools.lsp4ij.LSPIJUtils;
 import com.redhat.devtools.lsp4ij.LanguageServerManager;
 import com.redhat.devtools.lsp4ij.ServerStatus;
 import com.redhat.devtools.lsp4ij.features.AbstractLSPInlayHintsProvider;
-import com.redhat.devtools.lsp4ij.internal.CancellationSupport;
 
 @SuppressWarnings("UnstableApiUsage")
 public class TextureHintsProvider extends AbstractLSPInlayHintsProvider {
@@ -45,7 +44,6 @@ public class TextureHintsProvider extends AbstractLSPInlayHintsProvider {
     private final SettingsKey<NoSettings> key = new SettingsKey<>("GroovyScript.TextureHintsProvider");
     private static final AtomicReference<String> previousFile = new AtomicReference<>("");
     private static final AtomicLong previousSavedModStamp = new AtomicLong(-1);
-    private static final AtomicReference<CancellationSupport> cancellation = new AtomicReference<>(null);
     private static volatile CompletableFuture<List<Pair<GetTextureResponse, PsiElement>>> previousResults = CompletableFuture
             .completedFuture(Collections.emptyList());
 
@@ -169,10 +167,9 @@ public class TextureHintsProvider extends AbstractLSPInlayHintsProvider {
         }
 
         // cancel any existing requests
-        // reduces load on intelliJ, no effect on LSP (until cancelling is supported)
-        var toCancel = cancellation.get();
-        if (toCancel != null)
-            toCancel.cancel();
+        // reduces load on intelliJ, does nothing on LSP
+        if (!previousResults.isDone())
+            previousResults.cancel(true);
 
         previousFile.set(path);
         previousSavedModStamp.set(modStamp);
@@ -197,11 +194,6 @@ public class TextureHintsProvider extends AbstractLSPInlayHintsProvider {
 
                     return elements;
                 });
-
-        // Allow for cancellation
-        var cancel = new CancellationSupport();
-        cancel.execute(previousResults);
-        cancellation.set(cancel);
     }
 
     /**
