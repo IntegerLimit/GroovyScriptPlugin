@@ -25,6 +25,14 @@ public class GrSConnectionProvider implements StreamConnectionProvider {
     public void start() throws CannotStartProcessException {
         LOG.info("Connecting to GrS LSP Server, at Port " + port + "...");
 
+        if (sock != null && !sock.isClosed()) {
+            try {
+                sock.close();
+            } catch (IOException e) {
+                LOG.error("Failed to close existing GrS Socket (start) ", e);
+            }
+        }
+
         try {
             sock = new Socket((String) null, port);
         } catch (IOException e) {
@@ -63,10 +71,16 @@ public class GrSConnectionProvider implements StreamConnectionProvider {
         if (sock != null) {
             try {
                 sock.close();
+                sock = null;
             } catch (IOException e) {
-                LOG.error(e);
+                LOG.error("Failed to close GrS Socket (stop) ", e);
             }
         }
+    }
+
+    @Override
+    public boolean isAlive() {
+        return !sock.isClosed() && sock.isConnected();
     }
 
     @Override
