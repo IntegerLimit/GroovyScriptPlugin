@@ -6,10 +6,12 @@ import org.eclipse.lsp4j.services.LanguageServer;
 import org.jetbrains.annotations.NotNull;
 
 import com.intellij.openapi.project.Project;
+import com.intlimit.grsplugin.features.completion.GrSCompletionFeature;
 import com.intlimit.grsplugin.server.GrSServerAPI;
 import com.intlimit.grsplugin.settings.GrSSettings;
 import com.redhat.devtools.lsp4ij.LanguageServerEnablementSupport;
 import com.redhat.devtools.lsp4ij.LanguageServerFactory;
+import com.redhat.devtools.lsp4ij.client.features.LSPClientFeatures;
 import com.redhat.devtools.lsp4ij.server.StreamConnectionProvider;
 
 public class GrSLanguageServerFactory implements LanguageServerFactory, LanguageServerEnablementSupport {
@@ -22,6 +24,12 @@ public class GrSLanguageServerFactory implements LanguageServerFactory, Language
     @Override
     public @NotNull Class<? extends LanguageServer> getServerInterface() {
         return GrSServerAPI.class;
+    }
+
+    @SuppressWarnings("UnstableApiUsage")
+    @Override
+    public @NotNull LSPClientFeatures createClientFeatures() {
+        return LanguageServerFactory.super.createClientFeatures().setCompletionFeature(new GrSCompletionFeature());
     }
 
     @Override

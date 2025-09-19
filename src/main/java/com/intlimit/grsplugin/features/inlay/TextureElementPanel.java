@@ -1,4 +1,4 @@
-package com.intlimit.grsplugin.features;
+package com.intlimit.grsplugin.features.inlay;
 
 import static com.intellij.codeInsight.hint.HintUtil.createHintBorder;
 

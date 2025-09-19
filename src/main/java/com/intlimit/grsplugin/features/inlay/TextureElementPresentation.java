@@ -1,4 +1,4 @@
-package com.intlimit.grsplugin.features;
+package com.intlimit.grsplugin.features.inlay;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;

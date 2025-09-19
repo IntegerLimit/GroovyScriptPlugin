@@ -2,49 +2,49 @@
 <templateSet group="GroovyScript Object Mappers (GregTech CEu)">
     <template name="map" value="recipemap('$RECIPE_MAP$')$END$" toReformat="true" toShortenFQNames="false"
               key="live.template.map.description" resource-bundle="messages.LiveTemplates">
-        <variable name="RECIPE_MAP" expression="complete()" defaultValue="" alwaysStopAt="true" />
+        <variable name="RECIPE_MAP" expression="" defaultValue="" alwaysStopAt="true" />
         <context>
             <option name="GROOVY_EXPRESSION" value="true" />
         </context>
     </template>
     <template name="recipemap" value="recipemap('$RECIPE_MAP$')$END$" toReformat="true" toShortenFQNames="false"
               key="live.template.map.description" resource-bundle="messages.LiveTemplates">
-        <variable name="RECIPE_MAP" expression="complete()" defaultValue="" alwaysStopAt="true" />
+        <variable name="RECIPE_MAP" expression="" defaultValue="" alwaysStopAt="true" />
         <context>
             <option name="GROOVY_EXPRESSION" value="true" />
         </context>
     </template>
     <template name="material" value="material('$MAT$')$END$" toReformat="true" toShortenFQNames="false"
               key="live.template.material.description" resource-bundle="messages.LiveTemplates">
-        <variable name="MAT" expression="complete()" defaultValue="" alwaysStopAt="true" />
+        <variable name="MAT" expression="" defaultValue="" alwaysStopAt="true" />
         <context>
             <option name="GROOVY_EXPRESSION" value="true" />
         </context>
     </template>
     <template name="element" value="element('$ELEMENT$')$END$" toReformat="true" toShortenFQNames="false"
               key="live.template.element.description" resource-bundle="messages.LiveTemplates">
-        <variable name="ELEMENT" expression="complete()" defaultValue="" alwaysStopAt="true" />
+        <variable name="ELEMENT" expression="" defaultValue="" alwaysStopAt="true" />
         <context>
             <option name="GROOVY_EXPRESSION" value="true" />
         </context>
     </template>
     <template name="prefix" value="oreprefix('$OP$')$END$" toReformat="true" toShortenFQNames="false"
               key="live.template.prefix.description" resource-bundle="messages.LiveTemplates">
-        <variable name="OP" expression="complete()" defaultValue="" alwaysStopAt="true" />
+        <variable name="OP" expression="" defaultValue="" alwaysStopAt="true" />
         <context>
             <option name="GROOVY_EXPRESSION" value="true" />
         </context>
     </template>
     <template name="oreprefix" value="oreprefix('$OP$')$END$" toReformat="true" toShortenFQNames="false"
               key="live.template.prefix.description" resource-bundle="messages.LiveTemplates">
-        <variable name="OP" expression="complete()" defaultValue="" alwaysStopAt="true" />
+        <variable name="OP" expression="" defaultValue="" alwaysStopAt="true" />
         <context>
             <option name="GROOVY_EXPRESSION" value="true" />
         </context>
     </template>
     <template name="metaitem" value="metaitem('$META_ITEM$')$END$" toReformat="true" toShortenFQNames="false"
               key="live.template.metaitem.description" resource-bundle="messages.LiveTemplates">
-        <variable name="META_ITEM" expression="complete()" defaultValue="" alwaysStopAt="true" />
+        <variable name="META_ITEM" expression="" defaultValue="" alwaysStopAt="true" />
         <context>
             <option name="GROOVY_EXPRESSION" value="true" />
         </context>

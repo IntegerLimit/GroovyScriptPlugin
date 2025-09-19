@@ -2,7 +2,7 @@
 <templateSet group="GroovyScript Object Mappers (Vanilla)">
   <template name="item" value="item('$ITEM$', $META$)$END$" toReformat="false" toShortenFQNames="false"
             key="live.template.item.description" resource-bundle="messages.LiveTemplates">
-    <variable name="ITEM" expression="complete()" defaultValue="" alwaysStopAt="true" />
+    <variable name="ITEM" expression="" defaultValue="" alwaysStopAt="true" />
     <variable name="META" expression="" defaultValue="0" alwaysStopAt="true" />
     <context>
       <option name="GROOVY_EXPRESSION" value="true" />
@@ -10,14 +10,14 @@
   </template>
   <template name="fluid" value="fluid('$FLUID$')$END$" toReformat="true" toShortenFQNames="false"
             key="live.template.fluid.description" resource-bundle="messages.LiveTemplates">
-    <variable name="FLUID" expression="complete()" defaultValue="" alwaysStopAt="true" />
+    <variable name="FLUID" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="GROOVY_EXPRESSION" value="true" />
     </context>
   </template>
   <template name="ore" value="ore('$ORE$')$END$" toReformat="true" toShortenFQNames="false"
             key="live.template.ore.description" resource-bundle="messages.LiveTemplates">
-    <variable name="ORE" expression="complete()" defaultValue="" alwaysStopAt="true" />
+    <variable name="ORE" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="GROOVY_EXPRESSION" value="true" />
     </context>
@@ -40,14 +40,14 @@
   </template>
   <template name="block" value="block('$BLOCK$')$END$" toReformat="true" toShortenFQNames="false"
             key="live.template.block.description" resource-bundle="messages.LiveTemplates">
-    <variable name="BLOCK" expression="complete()" defaultValue="" alwaysStopAt="true" />
+    <variable name="BLOCK" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="GROOVY_EXPRESSION" value="true" />
     </context>
   </template>
   <template name="blockstate" value="blockstate('$BLOCK$', $META$)$END$" toReformat="true" toShortenFQNames="false"
             key="live.template.blockstate.description" resource-bundle="messages.LiveTemplates">
-    <variable name="BLOCK" expression="complete()" defaultValue="" alwaysStopAt="true" />
+    <variable name="BLOCK" expression="" defaultValue="" alwaysStopAt="true" />
     <variable name="META" expression="" defaultValue="0" alwaysStopAt="false" />
     <context>
       <option name="GROOVY_EXPRESSION" value="true" />
@@ -55,84 +55,84 @@
   </template>
   <template name="enchantment" value="enchantment('$ENCH$')$END$" toReformat="true" toShortenFQNames="false"
             key="live.template.enchantment.description" resource-bundle="messages.LiveTemplates">
-    <variable name="ENCH" expression="complete()" defaultValue="" alwaysStopAt="true" />
+    <variable name="ENCH" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="GROOVY_EXPRESSION" value="true" />
     </context>
   </template>
   <template name="potion" value="potion('$POTION$')$END$" toReformat="true" toShortenFQNames="false"
             key="live.template.potion.description" resource-bundle="messages.LiveTemplates">
-    <variable name="POTION" expression="complete()" defaultValue="" alwaysStopAt="true" />
+    <variable name="POTION" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="GROOVY_EXPRESSION" value="true" />
     </context>
   </template>
   <template name="potionType" value="potionType('$POTION_TYPE$')$END$" toReformat="true" toShortenFQNames="false"
             key="live.template.potion.type.description" resource-bundle="messages.LiveTemplates">
-    <variable name="POTION_TYPE" expression="complete()" defaultValue="" alwaysStopAt="true" />
+    <variable name="POTION_TYPE" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="GROOVY_EXPRESSION" value="true" />
     </context>
   </template>
   <template name="sound" value="sound('$SOUND$')$END$" toReformat="true" toShortenFQNames="false"
             key="live.template.sound.description" resource-bundle="messages.LiveTemplates">
-    <variable name="SOUND" expression="complete()" defaultValue="" alwaysStopAt="true" />
+    <variable name="SOUND" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="GROOVY_EXPRESSION" value="true" />
     </context>
   </template>
   <template name="entity" value="entity('$ENTITY$')$END$" toReformat="true" toShortenFQNames="false"
             key="live.template.entity.description" resource-bundle="messages.LiveTemplates">
-    <variable name="ENTITY" expression="complete()" defaultValue="" alwaysStopAt="true" />
+    <variable name="ENTITY" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="GROOVY_EXPRESSION" value="true" />
     </context>
   </template>
   <template name="dim" value="dimension('$DIM$')$END$" toReformat="true" toShortenFQNames="false"
             key="live.template.dim.description" resource-bundle="messages.LiveTemplates">
-    <variable name="DIM" expression="complete()" defaultValue="" alwaysStopAt="true" />
+    <variable name="DIM" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="GROOVY_EXPRESSION" value="true" />
     </context>
   </template>
   <template name="dimension" value="dimension('$DIM$')$END$" toReformat="true" toShortenFQNames="false"
             key="live.template.dim.description" resource-bundle="messages.LiveTemplates">
-    <variable name="DIM" expression="complete()" defaultValue="" alwaysStopAt="true" />
+    <variable name="DIM" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="GROOVY_EXPRESSION" value="true" />
     </context>
   </template>
   <template name="biome" value="biome('$BIOME$')$END$" toReformat="true" toShortenFQNames="false"
             key="live.template.biome.description" resource-bundle="messages.LiveTemplates">
-    <variable name="BIOME" expression="complete()" defaultValue="" alwaysStopAt="true" />
+    <variable name="BIOME" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="GROOVY_EXPRESSION" value="true" />
     </context>
   </template>
   <template name="profession" value="profession('$PROF$')$END$" toReformat="true" toShortenFQNames="false"
             key="live.template.profession.description" resource-bundle="messages.LiveTemplates">
-    <variable name="PROF" expression="complete()" defaultValue="" alwaysStopAt="true" />
+    <variable name="PROF" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="GROOVY_EXPRESSION" value="true" />
     </context>
   </template>
   <template name="career" value="career('$CAREER$')$END$" toReformat="true" toShortenFQNames="false"
             key="live.template.career.description" resource-bundle="messages.LiveTemplates">
-    <variable name="CAREER" expression="complete()" defaultValue="" alwaysStopAt="true" />
+    <variable name="CAREER" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="GROOVY_EXPRESSION" value="true" />
     </context>
   </template>
   <template name="creativeTab" value="creativeTab('$TAB$')$END$" toReformat="true" toShortenFQNames="false"
             key="live.template.creative.tab.description" resource-bundle="messages.LiveTemplates">
-    <variable name="TAB" expression="complete()" defaultValue="" alwaysStopAt="true" />
+    <variable name="TAB" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="GROOVY_EXPRESSION" value="true" />
     </context>
   </template>
   <template name="textformat" value="textformat('$FMT$')$END$" toReformat="true" toShortenFQNames="false"
             key="live.template.textformat.description" resource-bundle="messages.LiveTemplates">
-    <variable name="FMT" expression="complete()" defaultValue="" alwaysStopAt="true" />
+    <variable name="FMT" expression="" defaultValue="" alwaysStopAt="true" />
     <context>
       <option name="GROOVY_EXPRESSION" value="true" />
     </context>

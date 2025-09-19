@@ -29,7 +29,8 @@
                 parentId="language"
                 instance="com.intlimit.grsplugin.settings.GrSSettingsConfigurable"
                 id="com.intlimit.grsplugin.settings.GrSSettingsConfigurable"
-                displayName="GroovyScript"
+                key="plugin.display_name"
+                bundle="messages.Settings"
         />
 
         <lang.foldingBuilder language="Groovy"
@@ -47,9 +48,14 @@
         <defaultLiveTemplates file="/liveTemplates/Preprocessors.xml" />
         <defaultLiveTemplates file="/liveTemplates/ObjectMappersVanilla.xml" />
         <defaultLiveTemplates file="/liveTemplates/ObjectMappersGregTech.xml" />
+        <defaultLiveTemplates file="/liveTemplates/JEI.xml" />
+
+        <completion.confidence id="GrSAllowCompletionInStrings" order="before groovyAdvanced" implementationClass="com.intlimit.grsplugin.features.completion.GrSAllowCompletionInStrings"
+                               language="Groovy"/>
+        <lookup.charFilter id="GrSObjectMapperCharFilter" order="first" implementation="com.intlimit.grsplugin.features.completion.GrSObjectMapperCharFilter" />
 
         <codeInsight.inlayProvider
                 language="Groovy"
-                implementationClass="com.intlimit.grsplugin.features.TextureHintsProvider" />
+                implementationClass="com.intlimit.grsplugin.features.inlay.TextureHintsProvider" />
     </extensions>
 </idea-plugin>

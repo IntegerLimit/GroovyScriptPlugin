@@ -1,4 +1,4 @@
-package com.intlimit.grsplugin.features;
+package com.intlimit.grsplugin.features.inlay;
 
 import static com.redhat.devtools.lsp4ij.internal.CompletableFutures.isDoneNormally;
 import static com.redhat.devtools.lsp4ij.internal.CompletableFutures.waitUntilDone;
@@ -115,6 +115,7 @@ public class TextureHintsProvider extends AbstractLSPInlayHintsProvider {
      * Returns true if exceptional completion, false if success.
      */
     private boolean waitForResults(PsiFile file) {
+        //noinspection IncorrectCancellationExceptionHandling
         try {
             waitUntilDone(previousResults, file);
 
