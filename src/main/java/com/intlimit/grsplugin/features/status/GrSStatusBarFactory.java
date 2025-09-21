@@ -7,7 +7,10 @@ import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.NlsContexts;
 import com.intellij.openapi.wm.StatusBarWidget;
 import com.intellij.openapi.wm.StatusBarWidgetFactory;
+import com.intlimit.grsplugin.lsp.GrSLanguageServerFactory;
 import com.intlimit.grsplugin.settings.GrSSettings;
+import com.redhat.devtools.lsp4ij.LanguageServerManager;
+import com.redhat.devtools.lsp4ij.ServerStatus;
 
 public class GrSStatusBarFactory implements StatusBarWidgetFactory {
 
@@ -24,13 +27,15 @@ public class GrSStatusBarFactory implements StatusBarWidgetFactory {
     @Override
     public boolean isAvailable(@NotNull Project project) {
         GrSSettings.State settings = GrSSettings.getInstance(project).getState();
-        return settings != null && settings.enable && settings.statusBar;
+        if (settings == null || !(settings.enable && settings.statusBar))
+            return false;
+
+        ServerStatus status = LanguageServerManager.getInstance(project).getServerStatus(GrSLanguageServerFactory.ID);
+        return status != ServerStatus.none;
     }
 
     @Override
     public @NotNull StatusBarWidget createWidget(@NotNull Project project) {
-        // Update state before we create widget
-
         return new GrSStatusBarWidget();
     }
 

@@ -10,7 +10,6 @@ import org.jetbrains.annotations.Nullable;
 
 import com.intellij.ide.DataManager;
 import com.intellij.openapi.actionSystem.ex.ActionUtil;
-import com.intellij.openapi.application.ApplicationManager;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
 import com.intellij.openapi.util.Disposer;
 import com.intellij.openapi.wm.StatusBar;
@@ -28,15 +27,12 @@ public class GrSStatusBarWidget implements StatusBarWidget, StatusBarWidget.Icon
 
     private ServerStatus status;
     private StatusBar statusBar;
-    private final BroadcastServerStatus.ServerStatusListener listener;
+    private BroadcastServerStatus.ServerStatusListener listener;
 
     public static final String ID = "GrSStatusBarWidget";
 
     public GrSStatusBarWidget() {
-        status = ServerStatus.installed;
-        listener = this::updateStatus;
-
-        ApplicationManager.getApplication().getService(BroadcastServerStatus.class).addListener(listener);
+        status = ServerStatus.starting;
     }
 
     @Override
@@ -67,6 +63,9 @@ public class GrSStatusBarWidget implements StatusBarWidget, StatusBarWidget.Icon
 
         var project = statusBar.getProject();
         if (project == null) return;
+
+        listener = this::updateStatus;
+        project.getService(BroadcastServerStatus.class).addListener(listener);
 
         // Update status
         updateStatus(LanguageServerManager.getInstance(project).getServerStatus(GrSLanguageServerFactory.ID));
@@ -104,13 +103,18 @@ public class GrSStatusBarWidget implements StatusBarWidget, StatusBarWidget.Icon
         if (statusBar == null) return;
         var project = statusBar.getProject();
 
-        if (project != null)
+        if (project != null) {
             WindowManager.getInstance().getStatusBar(project).updateWidget(GrSStatusBarWidget.ID);
+        }
     }
 
     @Override
     public void dispose() {
         StatusBarWidget.super.dispose();
-        ApplicationManager.getApplication().getService(BroadcastServerStatus.class).removeListener(listener);
+
+        var project = statusBar.getProject();
+        if (listener != null && project != null) {
+            project.getService(BroadcastServerStatus.class).removeListener(listener);
+        }
     }
 }
