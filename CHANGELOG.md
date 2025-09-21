@@ -4,6 +4,12 @@
 
 ## [Unreleased]
 
+## [0.2.0] - 2025-09-21
+
+- Proper Completion for Object Mappers
+- Status Bar Icon & Quick Action Access
+- General Stability Improvements and Bug Fixes
+
 ## [0.1.6] - 2025-09-12
 
 - Support for IntelliJ Versions 2025.2.*
@@ -55,7 +61,8 @@ Notice: v0.1.3 has been skipped due to issues with Github Actions.
 - Added texture inlays
 - Added texture inlay tooltips
 
-[Unreleased]: https://github.com/IntegerLimit/GroovyScriptPlugin/compare/v0.1.6...HEAD
+[Unreleased]: https://github.com/IntegerLimit/GroovyScriptPlugin/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/IntegerLimit/GroovyScriptPlugin/compare/v0.1.6...v0.2.0
 [0.1.6]: https://github.com/IntegerLimit/GroovyScriptPlugin/compare/v0.1.5...v0.1.6
 [0.1.5]: https://github.com/IntegerLimit/GroovyScriptPlugin/compare/v0.1.4...v0.1.5
 [0.1.4]: https://github.com/IntegerLimit/GroovyScriptPlugin/compare/v0.1.1...v0.1.4
