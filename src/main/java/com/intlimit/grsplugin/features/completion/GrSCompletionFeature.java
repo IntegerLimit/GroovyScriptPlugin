@@ -44,9 +44,13 @@ public class GrSCompletionFeature extends LSPCompletionFeature {
 
             // Start after quotes
             startOffset += i + 1;
+
+            // Include quotes in the replacement, so we move the cursor to after quotes
+            endOffset += 1;
+
             item.setTextEdit(Either.forLeft(new TextEdit(
                     new Range(LSPIJUtils.toPosition(startOffset, document), LSPIJUtils.toPosition(endOffset, document)),
-                    item.getLabel())));
+                    item.getLabel() + "'")));
         }
 
         return super.createLookupElement(item, context);
