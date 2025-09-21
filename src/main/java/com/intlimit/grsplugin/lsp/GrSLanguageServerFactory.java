@@ -16,8 +16,6 @@ public class GrSLanguageServerFactory implements LanguageServerFactory, Language
 
     public static final String ID = "groovyscript";
 
-    private boolean enableNow = true;
-
     @Override
     public @NotNull StreamConnectionProvider createConnectionProvider(@NotNull Project project) {
         return new GrSConnectionProvider(Objects.requireNonNull(GrSSettings.getInstance(project).getState()).port);
@@ -36,11 +34,12 @@ public class GrSLanguageServerFactory implements LanguageServerFactory, Language
 
     @Override
     public boolean isEnabled(@NotNull Project project) {
-        return Objects.requireNonNull(GrSSettings.getInstance(project).getState()).enable && enableNow;
+        return Objects.requireNonNull(GrSSettings.getInstance(project).getState()).enable &&
+                GrSSettings.getInstance(project).currEnable();
     }
 
     @Override
     public void setEnabled(boolean b, @NotNull Project project) {
-        enableNow = b;
+        GrSSettings.getInstance(project).setCurrEnable(b);
     }
 }

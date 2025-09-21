@@ -26,6 +26,7 @@ public final class GrSSettings implements PersistentStateComponent<GrSSettings.S
     }
 
     private State state = new State();
+    private boolean currEnable = true;
 
     public static GrSSettings getInstance(Project project) {
         return project.getService(GrSSettings.class);
@@ -39,5 +40,13 @@ public final class GrSSettings implements PersistentStateComponent<GrSSettings.S
     @Override
     public void loadState(@NotNull State state) {
         this.state = state;
+    }
+
+    public boolean currEnable() {
+        return currEnable;
+    }
+
+    public void setCurrEnable(boolean currEnable) {
+        this.currEnable = currEnable;
     }
 }
