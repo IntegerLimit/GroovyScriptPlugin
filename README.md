@@ -52,7 +52,7 @@ Plugin based on the [IntelliJ Platform Plugin Template][template].
 
 ### Other
 - [ ] Allow localization
-- [ ] Improve handling of server status, especially after failure to connect or instance being closed
+- [x] Improve handling of server status, especially after failure to connect or instance being closed
 - [x] Fix completion removing quotes before
 - [x] Fix completion not working with object mappers on normal input (maybe see if IntelliJ's Typescript support can help as a base, it provides completion for object keys)
 - [ ] Improve completion sorting
