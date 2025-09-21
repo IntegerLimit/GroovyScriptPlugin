@@ -46,8 +46,6 @@
                 implementationClass="com.redhat.devtools.lsp4ij.features.documentSymbol.LSPDocumentSymbolStructureViewFactory"/>
         
         <defaultLiveTemplates file="/liveTemplates/Preprocessors.xml" />
-        <defaultLiveTemplates file="/liveTemplates/ObjectMappersVanilla.xml" />
-        <defaultLiveTemplates file="/liveTemplates/ObjectMappersGregTech.xml" />
         <defaultLiveTemplates file="/liveTemplates/JEI.xml" />
 
         <completion.confidence id="GrSAllowCompletionInStrings" order="before groovyAdvanced" implementationClass="com.intlimit.grsplugin.features.completion.GrSAllowCompletionInStrings"
