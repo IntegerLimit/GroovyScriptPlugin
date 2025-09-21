@@ -1,4 +1,4 @@
-package com.intlimit.grsplugin;
+package com.intlimit.grsplugin.lsp;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -36,6 +36,7 @@ public class GrSConnectionProvider implements StreamConnectionProvider {
         try {
             sock = new Socket((String) null, port);
         } catch (IOException e) {
+            sock = null;
             throw new CannotStartProcessException(e);
         }
     }
@@ -80,7 +81,7 @@ public class GrSConnectionProvider implements StreamConnectionProvider {
 
     @Override
     public boolean isAlive() {
-        return !sock.isClosed() && sock.isConnected();
+        return sock != null && !sock.isClosed() && sock.isConnected();
     }
 
     @Override

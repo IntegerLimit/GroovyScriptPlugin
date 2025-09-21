@@ -12,7 +12,7 @@
     <extensions defaultExtensionNs="com.redhat.devtools.lsp4ij">
         <server id="groovyscript"
                 name="GroovyScript LSP Support"
-                factoryClass="com.intlimit.grsplugin.GrSLanguageServerFactory">
+                factoryClass="com.intlimit.grsplugin.lsp.GrSLanguageServerFactory">
             <description><![CDATA[
         GroovyScript LSP Support for Jetbrains IDEs
         ]]>
@@ -29,7 +29,7 @@
                 parentId="language"
                 instance="com.intlimit.grsplugin.settings.GrSSettingsConfigurable"
                 id="com.intlimit.grsplugin.settings.GrSSettingsConfigurable"
-                key="plugin.display_name"
+                key="settings.display"
                 bundle="messages.Settings"
         />
 
@@ -57,5 +57,27 @@
         <codeInsight.inlayProvider
                 language="Groovy"
                 implementationClass="com.intlimit.grsplugin.features.inlay.TextureHintsProvider" />
+
+        <statusBarWidgetFactory id="GrSStatusBarFactory" order="last" implementation="com.intlimit.grsplugin.features.status.GrSStatusBarFactory" />
     </extensions>
+
+    <resource-bundle>messages.Actions</resource-bundle>
+    <actions>
+        <group id="com.intlimit.grsplugin.features.action.Group"
+               popup="true">
+            <add-to-group group-id="ToolsMenu" anchor="after" relative-to-action="Groovy.Console"/>
+            <action id="com.intlimit.grsplugin.features.action.StartGrSServerAction"
+                    class="com.intlimit.grsplugin.features.action.StartGrSServerAction"
+                    icon="AllIcons.Actions.Execute" />
+            <action id="com.intlimit.grsplugin.features.action.StopGrSServerAction"
+                    class="com.intlimit.grsplugin.features.action.StopGrSServerAction"
+                    icon="AllIcons.Actions.Suspend" />
+            <action id="com.intlimit.grsplugin.features.action.RestartGrSServerAction"
+                    class="com.intlimit.grsplugin.features.action.RestartGrSServerAction"
+                    icon="AllIcons.Actions.Restart" />
+            <action id="com.intlimit.grsplugin.features.action.ShowGrSSettingsAction"
+                    class="com.intlimit.grsplugin.features.action.ShowGrSSettingsAction"
+                    icon="AllIcons.General.Settings" />
+        </group>
+    </actions>
 </idea-plugin>

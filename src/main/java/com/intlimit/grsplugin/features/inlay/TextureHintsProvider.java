@@ -28,9 +28,10 @@ import com.intellij.openapi.progress.ProcessCanceledException;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
-import com.intlimit.grsplugin.server.GetTextureParams;
-import com.intlimit.grsplugin.server.GetTextureResponse;
-import com.intlimit.grsplugin.server.GrSServerAPI;
+import com.intlimit.grsplugin.lsp.GetTextureParams;
+import com.intlimit.grsplugin.lsp.GetTextureResponse;
+import com.intlimit.grsplugin.lsp.GrSServerAPI;
+import com.intlimit.grsplugin.settings.GrSSettings;
 import com.redhat.devtools.lsp4ij.LSPIJUtils;
 import com.redhat.devtools.lsp4ij.LanguageServerManager;
 import com.redhat.devtools.lsp4ij.ServerStatus;
@@ -97,6 +98,10 @@ public class TextureHintsProvider extends AbstractLSPInlayHintsProvider {
     protected void doCollect(@NotNull PsiFile psiFile, @NotNull Editor editor,
                              @NotNull PresentationFactory presentationFactory,
                              @NotNull InlayHintsSink inlayHintsSink) {
+        GrSSettings.State settings = GrSSettings.getInstance(psiFile.getProject()).getState();
+        if (settings == null || !settings.enable || settings.preTexture)
+            return;
+
         var virtualFile = psiFile.getVirtualFile();
         if (virtualFile == null) return;
 
@@ -115,7 +120,7 @@ public class TextureHintsProvider extends AbstractLSPInlayHintsProvider {
      * Returns true if exceptional completion, false if success.
      */
     private boolean waitForResults(PsiFile file) {
-        //noinspection IncorrectCancellationExceptionHandling
+        // noinspection IncorrectCancellationExceptionHandling
         try {
             waitUntilDone(previousResults, file);
 

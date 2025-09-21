@@ -34,7 +34,8 @@ public class GrSObjectMapperCompletionItem extends LSPCompletionProposal {
             // Go to position after quotes, but go reverse from completion trigger
             // (so we don't find another element's quotes)
             char toFind = doubleQuoted ? '"' : '\'';
-            char[] searchText = context.getDocument().getText(new TextRange(context.getStartOffset(), completionOffset)).toCharArray();
+            char[] searchText = context.getDocument().getText(new TextRange(context.getStartOffset(), completionOffset))
+                    .toCharArray();
 
             int i;
             for (i = searchText.length - 1; i >= 0; i--) {

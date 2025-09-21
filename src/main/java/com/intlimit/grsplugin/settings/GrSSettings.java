@@ -21,6 +21,8 @@ public final class GrSSettings implements PersistentStateComponent<GrSSettings.S
 
         public boolean enable = true;
         public int port = DEFAULT_PORT;
+        public boolean statusBar = true;
+        public boolean preTexture = false;
     }
 
     private State state = new State();

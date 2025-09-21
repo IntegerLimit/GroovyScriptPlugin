@@ -1,4 +1,4 @@
-package com.intlimit.grsplugin.server;
+package com.intlimit.grsplugin.lsp;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;

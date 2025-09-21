@@ -11,6 +11,10 @@ import com.intellij.openapi.options.Configurable;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.Disposer;
 import com.intellij.openapi.util.NlsContexts;
+import com.intellij.openapi.wm.StatusBarWidgetFactory;
+import com.intellij.openapi.wm.impl.status.widget.StatusBarWidgetsManager;
+import com.intlimit.grsplugin.features.status.GrSStatusBarFactory;
+import com.intlimit.grsplugin.lsp.GrSLanguageServerFactory;
 import com.redhat.devtools.lsp4ij.LanguageServerManager;
 
 public class GrSSettingsConfigurable implements Configurable {
@@ -45,14 +49,31 @@ public class GrSSettingsConfigurable implements Configurable {
     @Override
     public void apply() {
         var state = Objects.requireNonNull(GrSSettings.getInstance(project).getState());
+        boolean enableChanged = state.enable != component.enabled();
+        boolean portChanged = state.port != component.port();
+        boolean statusBarChanged = state.statusBar != component.statusBar();
+
         state.enable = component.enabled();
-        state.port = component.getPort();
+        state.port = component.port();
+        state.statusBar = component.statusBar();
+        state.preTexture = component.preTexture();
 
         // Restart GrS LSP Client
-        if (state.enable) {
-            LanguageServerManager.getInstance(project).start("groovyscript");
-        } else {
-            LanguageServerManager.getInstance(project).stop("groovyscript");
+        if (enableChanged || portChanged) {
+            if (state.enable) {
+                LanguageServerManager.getInstance(project).start(GrSLanguageServerFactory.ID);
+            } else {
+                LanguageServerManager.getInstance(project).stop(GrSLanguageServerFactory.ID);
+            }
+        }
+
+        // Update Widget Visibility
+        if (enableChanged || statusBarChanged) {
+            var widgetFactory = StatusBarWidgetFactory.EP_NAME.findExtension(GrSStatusBarFactory.class);
+            if (widgetFactory != null) {
+                // noinspection IncorrectServiceRetrieving For some reason, devkit thinks this is an app level service
+                project.getService(StatusBarWidgetsManager.class).updateWidget(widgetFactory);
+            }
         }
     }
 
@@ -61,6 +82,8 @@ public class GrSSettingsConfigurable implements Configurable {
         var state = Objects.requireNonNull(GrSSettings.getInstance(project).getState());
         component.setEnable(state.enable);
         component.setPort(state.port);
+        component.setStatusBar(state.statusBar);
+        component.setPreTexture(state.preTexture);
     }
 
     @Override

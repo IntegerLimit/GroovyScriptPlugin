@@ -61,3 +61,4 @@ Plugin based on the [IntelliJ Platform Plugin Template][template].
 - [ ] Inspections (e.g. favoring `item('rl', meta)` over `item('rl:meta')` or formatting from `item` to `metaitem`)
   - Add to GrS's LSP?
 - [ ] Look at sources, check for groovyblacklist annotation
+- [ ] Preview of texture inlay hint in inlay hint settings
