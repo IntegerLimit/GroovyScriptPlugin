@@ -14,7 +14,7 @@ public class RestartGrSServerAction extends AnAction {
 
     @Override
     public void update(@NotNull AnActionEvent e) {
-        ActionUtils.updatePresentation(e, status -> status == ServerStatus.started);
+        ActionUtils.updatePresentation(e, status -> status == ServerStatus.started || status == ServerStatus.starting);
     }
 
     @Override

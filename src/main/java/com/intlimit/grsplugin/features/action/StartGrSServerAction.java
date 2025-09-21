@@ -14,7 +14,7 @@ public class StartGrSServerAction extends AnAction {
 
     @Override
     public void update(@NotNull AnActionEvent e) {
-        ActionUtils.updatePresentation(e, status -> status == ServerStatus.stopped || status == ServerStatus.installed);
+        ActionUtils.updatePresentation(e, status -> status == ServerStatus.stopped);
     }
 
     @Override
