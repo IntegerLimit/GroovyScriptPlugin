@@ -4,6 +4,11 @@
 
 ## [Unreleased]
 
+## [0.2.2] - 2025-09-22
+
+- Hide Status Icon when Server Status is None
+- Allow Stopping/Restarting when Server Status is Starting
+
 ## [0.2.1] - 2025-09-21
 
 - Remove uses of Internal APIs
@@ -67,7 +72,8 @@ Notice: v0.1.3 has been skipped due to issues with Github Actions.
 - Added texture inlays
 - Added texture inlay tooltips
 
-[Unreleased]: https://github.com/IntegerLimit/GroovyScriptPlugin/compare/v0.2.1...HEAD
+[Unreleased]: https://github.com/IntegerLimit/GroovyScriptPlugin/compare/v0.2.2...HEAD
+[0.2.2]: https://github.com/IntegerLimit/GroovyScriptPlugin/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/IntegerLimit/GroovyScriptPlugin/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/IntegerLimit/GroovyScriptPlugin/compare/v0.1.6...v0.2.0
 [0.1.6]: https://github.com/IntegerLimit/GroovyScriptPlugin/compare/v0.1.5...v0.1.6
