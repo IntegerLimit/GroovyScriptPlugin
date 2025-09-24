@@ -13,7 +13,11 @@ This plugin utilizes the [Language Server Protocol](https://microsoft.github.io/
 
 LSP4IJ is a hard dependency of this Plugin. IntelliJ's own support has not been used due to limited feature sets and support being restricted to Ultimate versions.
 
-For support with GroovyScript versions pre-1.2.0, please disable the `GroovyScript texture` inlay hint, in the `Other -> Groovy` category. See the [IntelliJ Docs](https://www.jetbrains.com/help/idea/inlay-hints.html#enable_inlay_hints) for how to do this.
+## Using the Plugin
+1. Install the Plugin
+2. Open a `.groovy` file. You should see a small `GS` status icon on the bottom left of your screen.
+3. You can use the status icon to control the status of the language server, as well as to access the main settings page.
+4. **If using GrS versions pre-1.2.0**: In the main settings page, you can enable the `Disable texture inlays? (for GroovyScript versions pre 1.2.0)` checkbox.
 
 **This plugin is still in development. Future planned features are in the [roadmap](https://github.com/IntegerLimit/GroovyScriptPlugin#roadmap).**
 <!-- Plugin description end -->
@@ -51,7 +55,7 @@ Plugin based on the [IntelliJ Platform Plugin Template][template].
 - [ ] Texture settings: Improve preview
 
 ### Other
-- [ ] Allow localization
+- [x] Allow localization
 - [x] Improve handling of server status, especially after failure to connect or instance being closed
 - [x] Fix completion removing quotes before
 - [x] Fix completion not working with object mappers on normal input (maybe see if IntelliJ's Typescript support can help as a base, it provides completion for object keys)
