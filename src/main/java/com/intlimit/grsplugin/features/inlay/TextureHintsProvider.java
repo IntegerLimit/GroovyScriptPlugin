@@ -24,7 +24,6 @@ import com.intellij.codeInsight.hints.presentation.PresentationFactory;
 import com.intellij.lang.Language;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.openapi.editor.Editor;
-import com.intellij.openapi.progress.ProcessCanceledException;
 import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
@@ -36,6 +35,7 @@ import com.redhat.devtools.lsp4ij.LSPIJUtils;
 import com.redhat.devtools.lsp4ij.LanguageServerManager;
 import com.redhat.devtools.lsp4ij.ServerStatus;
 import com.redhat.devtools.lsp4ij.features.AbstractLSPInlayHintsProvider;
+import com.redhat.devtools.lsp4ij.internal.PsiFileChangedException;
 
 @SuppressWarnings("UnstableApiUsage")
 public class TextureHintsProvider extends AbstractLSPInlayHintsProvider {
@@ -125,7 +125,12 @@ public class TextureHintsProvider extends AbstractLSPInlayHintsProvider {
             waitUntilDone(previousResults, file);
 
             if (!isDoneNormally(previousResults)) return true;
-        } catch (ProcessCanceledException | CancellationException ignore) {} catch (ExecutionException e) {
+        } catch (PsiFileChangedException e) {
+            // cancel existing request
+            // reduces load on intelliJ, does nothing on LSP
+            if (!previousResults.isDone())
+                previousResults.cancel(true);
+        } catch (CancellationException ignore) {} catch (ExecutionException e) {
             log.error("Error whilst consuming LSP 'groovyScript/textureDecoration' request", e);
             return true;
         }
