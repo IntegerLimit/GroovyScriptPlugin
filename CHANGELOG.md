@@ -4,6 +4,15 @@
 
 ## [Unreleased]
 
+## [0.2.3] - 2025-12-11
+
+- **IntelliJ Version Support**:
+  * Lowest supported version is now 2024.3 (before: 2023.3)
+  * Now supports 2025.3+
+- **LSP4IJ Version**: Bumped to 0.19.0
+- Removal of deprecated API usages
+- Lots of internal dependency updates
+
 ## [0.2.2] - 2025-09-22
 
 - Hide Status Icon when Server Status is None
@@ -72,7 +81,8 @@ Notice: v0.1.3 has been skipped due to issues with Github Actions.
 - Added texture inlays
 - Added texture inlay tooltips
 
-[Unreleased]: https://github.com/IntegerLimit/GroovyScriptPlugin/compare/v0.2.2...HEAD
+[Unreleased]: https://github.com/IntegerLimit/GroovyScriptPlugin/compare/v0.2.3...HEAD
+[0.2.3]: https://github.com/IntegerLimit/GroovyScriptPlugin/compare/v0.2.2...v0.2.3
 [0.2.2]: https://github.com/IntegerLimit/GroovyScriptPlugin/compare/v0.2.1...v0.2.2
 [0.2.1]: https://github.com/IntegerLimit/GroovyScriptPlugin/compare/v0.2.0...v0.2.1
 [0.2.0]: https://github.com/IntegerLimit/GroovyScriptPlugin/compare/v0.1.6...v0.2.0
